@@ -4,26 +4,26 @@ global _ft_strcpy:
 _ft_strcpy:	
 	mov r11, rdi
 	mov r12, rsi
-	add r13, _ft_strlen r11
-	jmp first_loop
+	mov r13, 0				; j = 0
+	mov	r14, -1				; i = 0
+	jmp first_loop			; loop
 
-inc:
-	inc r11
+increment:
+	inc r13					; j++
 
 first_loop:
-	cmp byte [r11], 0
-	jne inc
-	je Lx
+	cmp byte r11[r13], 0	; dest[j] != 0
+	jne increment			; loop
 
-Lx:
-    mov  r9,[r12]          
-    mov  [r11],r9           
-    inc  r11              
-    inc  r12
-    cmp byte [r12],0   ; Check for null terminator
-    jne Lx                 ; loop if not null
-
+second_loop:
+	inc r14					; i++
+	cmp byte r12[r14], 0	; src[i] != 0
+	je end					; return 
+	mov r9, r12[r14]		; temp = src[i]
+	mov r11[r13],r9			; dest[j] = temp
+	inc r13					; j++
+	jne second_loop			; loop
 
 end:
-	mov rax, r11
-	ret 
+	mov rax, r11			; return dest
+	ret
