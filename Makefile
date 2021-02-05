@@ -2,9 +2,13 @@ SRCS =	main.c
 
 SRCS_ASM =	srcs/ft_strlen.s \
 			srcs/ft_strcpy.s \
-			srcs/ft_strcmp.s
+			srcs/ft_strcmp.s \
+			srcs/ft_write.s \
+			srcs/ft_read.s \
+			srcs/ft_strdup.s \
+			srcs/ft_list_size.s
 
-OBJS_ASM = ${SRCS_ASM:.c=.o}
+OBJS_ASM = ${SRCS_ASM:.s=.o}
 OBJS = ${SRCS:.c=.o}
 
 HEADER = libasm.h
@@ -15,7 +19,7 @@ CC = gcc
 
 RM = rm -f
 
-FLAGS = -Wall -Wextra -Werror 
+FLAGS = -Wall -Wextra -Werror
 
 %.o: %.c	${HEADER}
 			${CC} ${FLAGS} -c $< -o ${<:.c=.o}
@@ -24,7 +28,11 @@ $(NAME):	${OBJS}
 			nasm -f macho64 srcs/ft_strlen.s
 			nasm -f macho64 srcs/ft_strcpy.s
 			nasm -f macho64 srcs/ft_strcmp.s
-			ar rc ${NAME} ${OBJS} srcs/ft_strlen.o srcs/ft_strcpy.o srcs/ft_strcmp.o
+			nasm -f macho64 srcs/ft_write.s
+			nasm -f macho64 srcs/ft_read.s
+			nasm -f macho64 srcs/ft_strdup.s
+			nasm -f macho64 srcs/ft_list_size.s
+			ar rc ${NAME} ${OBJS} srcs/ft_strlen.o srcs/ft_strcpy.o srcs/ft_strcmp.o srcs/ft_write.o srcs/ft_read.o srcs/ft_strdup.o srcs/ft_list_size.o
 
 all:		${NAME}
 
@@ -32,7 +40,7 @@ clean:
 			${RM} ${OBJS} 
 
 fclean:		clean
-			${RM} ${NAME}
+			${RM} ${NAME}$ 
 
 re: fclean all
 

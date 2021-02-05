@@ -1,31 +1,30 @@
+global _ft_strcmp
 
-global _ft_strcmp:
 
 _ft_strcmp:
-	mov		r11, rdi
-	mov		r12, rsi
+	push	r9
+	push	r10
+	push	r13
+	xor		r9, r9
 	xor		r10, r10
-	jmp		compare_loop
+	xor		r13, r13
 
-compare_loop:
-	mov		cl, r12[r10]
-	cmp		BYTE r11[r10], cl
-	ja		end_above
-	jb		end_below
+loop:
+	mov		r9b, byte [rdi + r13]
+	mov		r10b, byte [rsi + r13]
+	cmp		r10b, 0
 	je		end
-	cmp		BYTE r11[r10], 0
-	inc		r10
+	cmp		r9b, 0
 	je		end
-	jne		compare_loop
+	cmp		r10b, r9b
+	jne		end
+	inc		r13
+	jmp		loop
 
 end:
-	mov		rax, 0
-	ret
-
-end_above:
-	mov		rax, 1
-	ret
-
-end_below:
-	mov		rax, -1
+	sub		r9, r10
+	mov		rax, r9
+	pop		r9
+	pop		r10
+	pop		r13
 	ret

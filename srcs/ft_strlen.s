@@ -1,15 +1,12 @@
+global _ft_strlen
 
-
-global _ft_strlen:
 _ft_strlen:
-			xor		rax, rax			; i = 0
-			jmp		loop				; while (str[i] != 0)
-
-inc:
-			inc		rax;				; i++
+	xor		rax, rax
+	jmp		loop
+increment:
+	inc		rax
 
 loop:
-			cmp	BYTE [rdi + rax], 0		; str[i] == 0 ?
-			jne inc 
-end:
-			ret							; return i
+	cmp		byte [rdi + rax], 0
+	jne		increment
+	ret
