@@ -13,7 +13,7 @@ _ft_strdup:
 alloc:
 	mov		rdi, rax
 	call	_malloc
-	cmp		byte rax, 0
+	cmp		rax, 0
 	jz		error
 	pop		rsi
 

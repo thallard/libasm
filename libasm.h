@@ -6,7 +6,7 @@
 /*   By: thallard <thallard@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 11:24:51 by thallard          #+#    #+#             */
-/*   Updated: 2021/02/05 15:28:28 by thallard         ###   ########lyon.fr   */
+/*   Updated: 2021/02/08 11:22:10 by thallard         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 typedef struct	s_list
 {
 	void		*content;
-	t_list		*next;
+	struct s_list *next;
 }				t_list;
 
 int		ft_strlen(const char *str);
